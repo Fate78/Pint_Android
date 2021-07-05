@@ -28,8 +28,6 @@ public class Login extends AppCompatActivity {
 
     boolean isEmailValid, isPasswordValid;
 
-    private JSONArray arrayLogin = null;
-
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,26 +45,15 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validar_dados_login();
-            }
-        });
-
-        test.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
                 try {
-                    testDatabase();
+                    validar_dados_login();
                 } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
             }
         });
     }
-    private void testDatabase() throws URISyntaxException {
-        BD bd=new BD();
-
-    }
-    private void validar_dados_login(){
+    private void validar_dados_login() throws URISyntaxException {
         if(email.getText().toString().isEmpty())
         {
             emailError.setError("Introduza o seu e-mail");
@@ -105,9 +92,9 @@ public class Login extends AppCompatActivity {
                         finish();
 
 
-                        Toast.makeText(getApplicationContext(), "Bem Vindo " + this.conteudoLogin.getUsername() + "!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Bem Vindo " + this.conteudoLogin.getUsername() + "!", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("id_utilizador", this.conteudoLogin.getId());
+                        intent.putExtra("id_autenticacao", this.conteudoLogin.getId_autenticacao());
                         startActivity(intent);
 
                     }else{
