@@ -1,45 +1,46 @@
 package com.example.projeto_pint.utilizador;
 
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.example.projeto_pint.basededados.BD;
 import com.example.projeto_pint.basededados.BD_Default;
 
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConteudoLogin extends BD_Default {
-    private int id, id_avatar, rank, pontuacao;
-    private String email, username, password;
+    private int id_autenticacao;
+    private String email, password;
     private String email_input, pass_input, novaPass;
 
     public ConteudoLogin()
     {
-        this.id=-1;
-        this.id_avatar=-1;
+        this.id_autenticacao=-1;
         this.email="";
-        this.username="";
         this.password="";
-        this.rank=-1;
-        this.pontuacao=-1;
     }
 
-    public void mudarPass(){
+    @SuppressLint("DefaultLocale")
+    public void mudarPass() throws URISyntaxException {
         String comando="";
-        comando=String.format("UPDATE Utilizador SET PASSWORD = '%s' WHERE ID_UTILIZADOR = '%d';",
-                this.getPassword(), this.getId());
+        comando=String.format("UPDATE autenticacao SET PASSWORD = '%s' WHERE ID_AUT = '%d';",
+                this.getPassword(), this.getId_autenticacao());
         BD bd=new BD();
         bd.execute(comando);
     }
 
-    public Boolean entrarEmail(){
+    public Boolean entrarEmail() throws URISyntaxException {
         BD bd=new BD();
 
         try{
-            ResultSet resultSet = bd.select("select * from UTILIZADOR where email = '" +this.getEmail_input()+ "'");
+            ResultSet resultSet = bd.select("select * from autenticacao where EMAIL = '" +this.getEmail_input()+ "'");
             if (resultSet.next()) {
-                setId(resultSet.getInt("ID_UTILIZADOR"));
+                setId_autenticacao(resultSet.getInt("ID_AUT"));
                 Log.i("INFO", "VALORES" + resultSet);
                 return true;
             }
@@ -49,14 +50,13 @@ public class ConteudoLogin extends BD_Default {
         return false;
     }
 
-    public Boolean entrarPassword() {
+    public Boolean entrarPassword() throws URISyntaxException {
         BD bd = new BD();
 
         try {
-            ResultSet resultSet = bd.select("select * from UTILIZADOR where email = '" +this.getEmail_input()+ "' and password = '" +this.getPass_input()+ "'" );
+            ResultSet resultSet = bd.select("select * from autenticacao where EMAIL = '" +this.getEmail_input()+ "' and PASSWORD = '" +this.getPass_input()+ "'" );
             if (resultSet.next()) {
-                setId(resultSet.getInt("id_utilizador"));
-                setUsername(resultSet.getString("username"));
+                setId_autenticacao(resultSet.getInt("ID_AUT"));
 
                 Log.i("INFO", "VALORES" + resultSet);
                 return true;
@@ -69,14 +69,13 @@ public class ConteudoLogin extends BD_Default {
         return false;
     }
 
-    public Boolean verificaEstado() {
+    public Boolean verificaEstado() throws URISyntaxException {
         BD bd = new BD();
 
         try {
-            ResultSet resultSet = bd.select("select * from UTILIZADOR where email = '" +this.getEmail_input()+ "' and password = '" +this.getPass_input()+ "' and deleted = '0'" );
+            ResultSet resultSet = bd.select("select * from autenticacao where EMAIL = '" +this.getEmail_input()+ "' and PASSWORD = '" +this.getPass_input());
             if (resultSet.next()) {
-                setId(resultSet.getInt("id_utilizador"));
-                setUsername(resultSet.getString("username"));
+                setId_autenticacao(resultSet.getInt("ID_AUT"));
 
                 Log.i("INFO", "VALORES" + resultSet);
                 return true;
@@ -93,36 +92,12 @@ public class ConteudoLogin extends BD_Default {
 
     public void setNovaPass(String novaPass){this.novaPass=novaPass;}
 
-    public int getId() {
-        return id;
+    public int getId_autenticacao() {
+        return id_autenticacao;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId_avatar() {
-        return id_avatar;
-    }
-
-    public void setId_avatar(int id_avatar) {
-        this.id_avatar = id_avatar;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
-    public int getPontuacao() {
-        return pontuacao;
-    }
-
-    public void setPontuacao(int pontuacao) {
-        this.pontuacao = pontuacao;
+    public void setId_autenticacao(int id) {
+        this.id_autenticacao = id;
     }
 
     public String getEmail() {
@@ -131,14 +106,6 @@ public class ConteudoLogin extends BD_Default {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
