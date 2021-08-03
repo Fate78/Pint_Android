@@ -18,11 +18,16 @@ public class BD extends BD_Default implements Runnable{
     String username = dbUri.getUserInfo().split(":")[0];
     String password = dbUri.getUserInfo().split(":")[1];
     String dbUrl = "jdbc:mysql://"+dbUri.getHost()+dbUri.getPath();*/
-    private static final String dbUrl= "jdbc:mysql://eu-cdbr-west-01.cleardb.com/heroku_c5cf5753d7cc12c?reconnect=true";
+    private static final String dbUrl= "jdbc:mysql://@eu-cdbr-west-01.cleardb.com/heroku_c5cf5753d7cc12c?reconnect=true";
     private static final String username= "b98d4499fc6c28";
     private static final String password= "ca5826cc";
+    private static final String port= "3306";
+    private static final String ip= "eu-cdbr-west-01.cleardb.coms";
+    private static final String dbName= "heroku_c5cf5753d7cc12c";
+    private static final String url2= "jdbc:mysql://" + ip + ":" + port
+            + "/" + dbName;
 
-    private Connection connection = null;
+    private Connection connection;
 
     public BD() throws URISyntaxException {
         super();
@@ -34,7 +39,7 @@ public class BD extends BD_Default implements Runnable{
     {
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            connection=(Connection) DriverManager.getConnection(dbUrl, username, password);
+            connection=(Connection) DriverManager.getConnection(url2, username, password);
         }catch(Exception e){
             this._message=e.getMessage();
             this._status=false;

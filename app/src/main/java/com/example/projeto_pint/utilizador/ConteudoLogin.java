@@ -17,12 +17,12 @@ public class ConteudoLogin extends BD_Default {
     private int id_autenticacao;
     private String email, password;
     private String email_input, pass_input, novaPass;
-
-    public ConteudoLogin()
-    {
+    BD bd;
+    public ConteudoLogin() throws URISyntaxException {
         this.id_autenticacao=-1;
         this.email="";
         this.password="";
+        bd= new BD();
     }
 
     @SuppressLint("DefaultLocale")
@@ -35,10 +35,8 @@ public class ConteudoLogin extends BD_Default {
     }
 
     public Boolean entrarEmail() throws URISyntaxException {
-        BD bd=new BD();
-
         try{
-            ResultSet resultSet = bd.select("select * from autenticacao where EMAIL = '" +this.getEmail_input()+ "'");
+            ResultSet resultSet = bd.select("select count(*) from autenticacao where EMAIL = '" +this.getEmail_input()+ "'");
             if (resultSet.next()) {
                 setId_autenticacao(resultSet.getInt("ID_AUT"));
                 Log.i("INFO", "VALORES" + resultSet);

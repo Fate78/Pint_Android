@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.projeto_pint.MainActivity;
+import com.example.projeto_pint.Maps.MapsActivity;
 import com.example.projeto_pint.R;
 import com.example.projeto_pint.basededados.BD;
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,6 +25,7 @@ public class Login extends AppCompatActivity {
     EditText email, password;
     Button login;
     Button test;
+    Button map;
     TextInputLayout emailError, passError;
 
     boolean isEmailValid, isPasswordValid;
@@ -34,14 +36,26 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
 
-        this.conteudoLogin=new ConteudoLogin();
+        try {
+            this.conteudoLogin=new ConteudoLogin();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         this.email=(EditText) findViewById(R.id.txtEmail);
         this.password=(EditText) findViewById(R.id.txtPassword);
         login=(Button) findViewById(R.id.btnLogin);
         emailError=(TextInputLayout) findViewById(R.id.email_Error);
         passError=(TextInputLayout) findViewById(R.id.pass_Error);
         test=(Button) findViewById(R.id.btnTest);
+        map=(Button) findViewById(R.id.btnMap);
 
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

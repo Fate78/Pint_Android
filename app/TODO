@@ -1,0 +1,16 @@
+Macros - End User
+    Registar, em qualquer momento 1 de 3 niveis de densidade populacional
+    ao seu redor. Ex. Pouco populado, Muito populado, Extremamente
+    populado. – Resultado pin na area com cor associada ao nivel.
+
+    • Deve poder validar ou denunciar situações mal reportadas
+    • Deve ganhar pontos cada vez que alguem concorda com o seu report
+    (mediante regra a estabelecerex, a cada 2 likes 1 ponto))
+
+    • Deve conseguir ter uma percepção do seu ranking em termos de
+    contribuidor para a identificação de espaços crowdZero.
+    • O Utilizador terá um avatar correspondente ao nivel em que está (10
+    pontos, 50 pontos, 200 pontos)
+
+    • O utilizador poderá recorrer a uma mapa, de preferência com uma layer
+    estilo Heatmap ou com pin’s que desempenhem a mesma função.
